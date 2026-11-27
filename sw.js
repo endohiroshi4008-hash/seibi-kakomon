@@ -1,5 +1,5 @@
 // 端末にサイトを保存して、2回目以降は通信を待たずに開く。版（V）が変わったら古い保存分を消す
-const V='7bb8abbdd7',C='seibi-'+V,RT='seibi-rt';
+const V='f61702144c',C='seibi-'+V,RT='seibi-rt';
 const PRE=['./','questions.json?v='+V];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>Promise.all(PRE.map(u=>fetch(new Request(u,{cache:'reload'})).then(r=>{if(!r.ok)throw new Error(u);return c.put(u,r)})))))});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('seibi-')&&k!==C&&k!==RT).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
